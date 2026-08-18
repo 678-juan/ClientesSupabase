@@ -5,8 +5,8 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
+  background: #0d1117;
+  color: #f0f6fc;
 }
 
 .page {
@@ -20,10 +20,11 @@ body {
 .card {
   width: 100%;
   max-width: 960px;
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 20px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 18px;
   padding: 24px;
+  box-shadow: 0 0 0 1px rgba(240, 246, 252, 0.04);
 }
 
 .stack {
@@ -55,39 +56,48 @@ body {
 .button {
   width: 100%;
   border-radius: 12px;
-  border: 1px solid #334155;
+  border: 1px solid #30363d;
   padding: 12px 14px;
   font-size: 16px;
+  transition: all 0.2s ease;
 }
 
 .input {
-  background: #020617;
-  color: #e2e8f0;
+  background: #0d1117;
+  color: #f0f6fc;
+}
+
+.input::placeholder {
+  color: #8b949e;
 }
 
 .button {
   cursor: pointer;
-  background: #cbd5e1;
-  color: #0f172a;
+  background: #ffffff;
+  color: #0d1117;
   font-weight: 700;
+  border: 1px solid #d0d7de;
 }
 
 .button.primary {
-  background: #22c55e;
+  background: #f0f6fc;
+  color: #0d1117;
 }
 
 .button.ghost {
-  background: #1e293b;
-  color: #e2e8f0;
+  background: #21262d;
+  color: #f0f6fc;
+  border-color: #30363d;
 }
 
 .message {
   white-space: pre-wrap;
-  background: #020617;
-  border: 1px solid #1f2937;
+  background: #0d1117;
+  border: 1px solid #30363d;
   border-radius: 12px;
   padding: 14px;
   min-height: 72px;
+  color: #c9d1d9;
 }
 
 .table-wrap {
@@ -103,15 +113,15 @@ table {
 
 th,
 td {
-  border-bottom: 1px solid #1f2937;
+  border-bottom: 1px solid #30363d;
   padding: 12px 14px;
   text-align: left;
   vertical-align: top;
 }
 
 th {
-  background: #0b1220;
-  color: #cbd5e1;
+  background: #0d1117;
+  color: #c9d1d9;
 }
 
 .small {
