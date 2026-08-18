@@ -8,6 +8,8 @@ const form = document.getElementById("authForm");
 const result = document.getElementById("result");
 const submitBtn = document.getElementById("submitBtn");
 const toggleBtn = document.getElementById("toggleBtn");
+const passwordInput = document.getElementById("authPassword");
+const confirmPasswordInput = document.getElementById("authConfirmPassword");
 let mode = "login";
 
 function setMessage(text) {
@@ -15,8 +17,16 @@ function setMessage(text) {
 }
 
 function updateMode() {
-  submitBtn.textContent = mode === "login" ? "Entrar" : "Registrar y entrar";
-  toggleBtn.textContent = mode === "login" ? "Crear cuenta" : "Ya tengo cuenta";
+  const isSignup = mode === "signup";
+
+  submitBtn.textContent = isSignup ? "Registrar" : "Entrar";
+  toggleBtn.textContent = isSignup ? "Ya tengo cuenta" : "Crear cuenta";
+  confirmPasswordInput.style.display = isSignup ? "block" : "none";
+  confirmPasswordInput.required = isSignup;
+
+  if (!isSignup) {
+    confirmPasswordInput.value = "";
+  }
 }
 
 toggleBtn.addEventListener("click", () => {
@@ -33,11 +43,24 @@ form.addEventListener("submit", async (event) => {
   }
 
   const email = document.getElementById("authEmail").value.trim();
-  const password = document.getElementById("authPassword").value;
+  const password = passwordInput.value;
+  const confirmPassword = confirmPasswordInput.value;
 
   if (!email || !password) {
     setMessage("Completa email y contraseña.");
     return;
+  }
+
+  if (mode === "signup") {
+    if (!confirmPassword) {
+      setMessage("Confirma tu contraseña.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setMessage("Las contraseñas no coinciden.");
+      return;
+    }
   }
 
   const response = mode === "login"
@@ -45,12 +68,18 @@ form.addEventListener("submit", async (event) => {
     : await client.auth.signUp({ email, password });
 
   if (response.error) {
-    setMessage("No se pudo iniciar sesión. Verifica tus datos.");
+    setMessage(mode === "login"
+      ? "No se pudo iniciar sesión. Verifica tus datos."
+      : "No se pudo crear la cuenta. Intenta otra vez.");
     return;
   }
 
-  if (mode === "signup" && !response.data.session) {
-    setMessage("Cuenta creada. Revisa tu correo para confirmar.");
+  if (mode === "signup") {
+    form.reset();
+    mode = "login";
+    updateMode();
+    setMessage("Cuenta creada. Inicia sesión con tu usuario.");
+    window.location.href = "login.html";
     return;
   }
 
