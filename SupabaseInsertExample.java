@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -9,12 +8,15 @@ public class SupabaseInsertExample {
 
     public static void main(String[] args) throws Exception {
         String supabaseUrl = requiredEnv("SUPABASE_URL");
-        String supabaseKey = requiredEnv("SUPABASE_KEY");
+    String supabaseAnonKey = requiredEnv("SUPABASE_ANON_KEY");
+    String authToken = System.getenv("SUPABASE_AUTH_TOKEN");
         String table = System.getenv().getOrDefault("SUPABASE_TABLE", "clientes");
 
         String name = System.getenv().getOrDefault("CLIENT_NAME", "Juan Perez");
         String email = System.getenv().getOrDefault("CLIENT_EMAIL", "juan@example.com");
         String phone = System.getenv().getOrDefault("CLIENT_PHONE", "555-123-456");
+
+    String bearerToken = (authToken == null || authToken.isBlank()) ? supabaseAnonKey : authToken;
 
         String jsonBody = "{" +
                 "\"nombre\":\"" + escapeJson(name) + "\"," +
@@ -24,8 +26,8 @@ public class SupabaseInsertExample {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(supabaseUrl + "/rest/v1/" + table))
-                .header("apikey", supabaseKey)
-                .header("Authorization", "Bearer " + supabaseKey)
+            .header("apikey", supabaseAnonKey)
+            .header("Authorization", "Bearer " + bearerToken)
                 .header("Content-Type", "application/json")
                 .header("Prefer", "return=representation")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody, StandardCharsets.UTF_8))
@@ -36,6 +38,7 @@ public class SupabaseInsertExample {
 
         System.out.println("Status: " + response.statusCode());
         System.out.println("Respuesta: " + response.body());
+        System.out.println("Modo: " + ((authToken == null || authToken.isBlank()) ? "anon key" : "authenticated user token"));
     }
 
     private static String requiredEnv(String name) {

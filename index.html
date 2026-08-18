@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo Supabase</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+  <main class="mx-auto flex min-h-screen max-w-5xl items-center px-6 py-12">
+    <section class="grid w-full gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="space-y-6">
+        <span class="inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-sm font-medium text-cyan-300">
+          Demo real con Supabase
+        </span>
+        <div class="space-y-4">
+          <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+            Guarda clientes desde un front básico.
+          </h1>
+          <p class="max-w-xl text-base leading-7 text-slate-300 sm:text-lg">
+            Este ejemplo manda datos a un endpoint de backend que luego inserta en la tabla <span class="font-semibold text-slate-100">clientes</span> en Supabase.
+          </p>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <p class="text-sm text-slate-400">Tabla</p>
+            <p class="mt-2 font-semibold text-white">clientes</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <p class="text-sm text-slate-400">Estado</p>
+            <p class="mt-2 font-semibold text-emerald-400">Listo para probar</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <p class="text-sm text-slate-400">RLS</p>
+            <p class="mt-2 font-semibold text-white">authenticated</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-2xl shadow-cyan-950/20 backdrop-blur">
+        <form id="clientForm" class="space-y-4">
+          <div>
+            <label for="nombre" class="mb-2 block text-sm font-medium text-slate-300">Nombre</label>
+            <input id="nombre" name="nombre" type="text" placeholder="Juan Perez"
+              class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white outline-none ring-0 transition placeholder:text-slate-500 focus:border-cyan-400" />
+          </div>
+          <div>
+            <label for="email" class="mb-2 block text-sm font-medium text-slate-300">Email</label>
+            <input id="email" name="email" type="email" placeholder="juan@example.com"
+              class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400" />
+          </div>
+          <div>
+            <label for="telefono" class="mb-2 block text-sm font-medium text-slate-300">Teléfono</label>
+            <input id="telefono" name="telefono" type="text" placeholder="555-123-456"
+              class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400" />
+          </div>
+
+          <button type="submit"
+            class="w-full rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300 active:scale-[0.99]">
+            Guardar cliente
+          </button>
+
+          <p class="text-xs leading-5 text-slate-400">
+            El formulario envía un POST a <span class="font-mono text-slate-200">/api/insert</span>. Si aún no tienes backend, puedes cambiar esa URL dentro del script.
+          </p>
+        </form>
+
+        <pre id="result" class="mt-5 min-h-24 overflow-auto rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-slate-300">Esperando envío...</pre>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("clientForm");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const payload = {
+        nombre: document.getElementById("nombre").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        telefono: document.getElementById("telefono").value.trim(),
+      };
+
+      result.textContent = "Enviando...";
+
+      try {
+        const response = await fetch("/api/insert", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const text = await response.text();
+        result.textContent = `Status: ${response.status}\n${text}`;
+      } catch (error) {
+        result.textContent = `Error: ${error.message}`;
+      }
+    });
+  </script>
+</body>
+</html>
