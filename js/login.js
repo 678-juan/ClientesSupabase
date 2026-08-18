@@ -1,4 +1,4 @@
-const SUPABASE_URL = "PON_AQUI_TU_SUPABASE_URL";
+const SUPABASE_URL = "https://wyijenjdtuaentumtxek.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_ZXB-QbPQAdY62A-0bugCJA_9b1lmdSt";
 
 const ready = typeof window.supabase !== "undefined" && SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PON_AQUI") && !SUPABASE_ANON_KEY.includes("PON_AQUI");
