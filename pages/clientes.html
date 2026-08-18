@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clientes</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <main class="page">
+    <section class="card stack">
+      <div class="row" style="justify-content: space-between; align-items: center;">
+        <div>
+          <p class="muted small">Sesión</p>
+          <p id="authStatus" class="title" style="font-size: 20px;">Verificando...</p>
+        </div>
+        <button id="logoutBtn" class="button ghost" type="button" style="width: auto;">Cerrar sesión</button>
+      </div>
+
+      <form id="clientForm" class="row">
+        <input id="nombre" class="input grow" type="text" placeholder="Nombre" />
+        <input id="email" class="input grow" type="email" placeholder="Email" />
+        <input id="telefono" class="input grow" type="text" placeholder="Teléfono" />
+        <button class="button primary" type="submit" style="width: auto; min-width: 130px;">Agregar</button>
+      </form>
+
+      <div class="stack">
+        <p class="title" style="font-size: 22px; margin: 0;">Clientes</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody id="clientsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="result" class="message small">Listo.</div>
+    </section>
+  </main>
+
+  <script src="../js/clientes.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <main class="page">
+    <section class="card stack" style="max-width: 420px;">
+      <h1 class="title">Iniciar sesión</h1>
+      <p class="muted small">Luego vas a clientes.</p>
+
+      <form id="authForm" class="stack">
+        <input id="authEmail" class="input" type="email" placeholder="usuario@correo.com" />
+        <input id="authPassword" class="input" type="password" placeholder="mínimo 6 caracteres" />
+        <button id="submitBtn" class="button primary" type="submit">Entrar</button>
+        <button id="toggleBtn" class="button ghost" type="button">Crear cuenta</button>
+      </form>
+
+      <div id="result" class="message small">Listo.</div>
+    </section>
+  </main>
+
+  <script src="../js/login.js"></script>
+</body>
+</html>
