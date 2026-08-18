@@ -9,6 +9,10 @@ body {
   color: #f0f6fc;
 }
 
+.login-page {
+  background: linear-gradient(135deg, #dc2626, #2563eb);
+}
+
 .page {
   min-height: 100vh;
   display: flex;
