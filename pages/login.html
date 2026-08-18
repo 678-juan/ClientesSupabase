@@ -11,16 +11,15 @@
   <main class="page">
     <section class="card stack" style="max-width: 420px;">
       <h1 class="title">Iniciar sesión</h1>
-      <p class="muted small">Luego vas a clientes.</p>
 
       <form id="authForm" class="stack">
         <input id="authEmail" class="input" type="email" placeholder="usuario@correo.com" />
-        <input id="authPassword" class="input" type="password" placeholder="mínimo 6 caracteres" />
+        <input id="authPassword" class="input" type="password" placeholder="Contraseña" />
         <button id="submitBtn" class="button primary" type="submit">Entrar</button>
         <button id="toggleBtn" class="button ghost" type="button">Crear cuenta</button>
       </form>
 
-      <div id="result" class="message small">Listo.</div>
+      <div id="result" class="message small" aria-live="polite"></div>
     </section>
   </main>
 

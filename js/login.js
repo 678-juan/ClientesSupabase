@@ -28,7 +28,7 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   if (!client) {
-    setMessage("Pega tu SUPABASE_URL y tu SUPABASE_ANON_KEY en login.js.");
+    setMessage("No se pudo conectar. Intenta más tarde.");
     return;
   }
 
@@ -36,7 +36,7 @@ form.addEventListener("submit", async (event) => {
   const password = document.getElementById("authPassword").value;
 
   if (!email || !password) {
-    setMessage("Escribe email y contraseña.");
+    setMessage("Completa email y contraseña.");
     return;
   }
 
@@ -45,12 +45,12 @@ form.addEventListener("submit", async (event) => {
     : await client.auth.signUp({ email, password });
 
   if (response.error) {
-    setMessage(`Error: ${response.error.message}`);
+    setMessage("No se pudo iniciar sesión. Verifica tus datos.");
     return;
   }
 
   if (mode === "signup" && !response.data.session) {
-    setMessage("Cuenta creada. Revisa tu correo si activaste confirmación.");
+    setMessage("Cuenta creada. Revisa tu correo para confirmar.");
     return;
   }
 
@@ -58,7 +58,7 @@ form.addEventListener("submit", async (event) => {
 });
 
 if (!client) {
-  setMessage("Pega tu SUPABASE_URL y tu SUPABASE_ANON_KEY en login.js.");
+  setMessage("No se pudo conectar. Intenta más tarde.");
 }
 
 updateMode();

@@ -61,7 +61,7 @@ async function loadClients() {
     .order("created_at", { ascending: false });
 
   if (error) {
-    setMessage(`Error al cargar clientes: ${error.message}`);
+    setMessage("No se pudieron cargar los clientes.");
     return;
   }
 
@@ -72,7 +72,7 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   if (!client) {
-    setMessage("Pega tu SUPABASE_URL y tu SUPABASE_ANON_KEY en clientes.js.");
+    setMessage("No se pudo conectar. Intenta más tarde.");
     return;
   }
 
@@ -87,14 +87,14 @@ form.addEventListener("submit", async (event) => {
   const telefono = document.getElementById("telefono").value.trim();
 
   if (!nombre) {
-    setMessage("El nombre es obligatorio.");
+    setMessage("Escribe el nombre del cliente.");
     return;
   }
 
   const { error } = await client.from("clientes").insert([{ user_id: s.user.id, nombre, email, telefono }]);
 
   if (error) {
-    setMessage(`Error al guardar cliente: ${error.message}`);
+    setMessage("No se pudo guardar el cliente.");
     return;
   }
 
@@ -110,8 +110,8 @@ logoutBtn.addEventListener("click", async () => {
 });
 
 if (!client) {
-  authStatus.textContent = "Falta configurar Supabase";
-  setMessage("Pega tu SUPABASE_URL y tu SUPABASE_ANON_KEY en clientes.js.");
+  authStatus.textContent = "Sin conexión";
+  setMessage("No se pudo conectar. Intenta más tarde.");
 } else {
   loadClients();
 }

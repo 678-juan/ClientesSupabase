@@ -11,10 +11,7 @@
   <main class="page">
     <section class="card stack">
       <div class="row" style="justify-content: space-between; align-items: center;">
-        <div>
-          <p class="muted small">Sesión</p>
-          <p id="authStatus" class="title" style="font-size: 20px;">Verificando...</p>
-        </div>
+        <p id="authStatus" class="title" style="font-size: 20px; margin: 0;">Cargando...</p>
         <button id="logoutBtn" class="button ghost" type="button" style="width: auto;">Cerrar sesión</button>
       </div>
 
@@ -42,7 +39,7 @@
         </div>
       </div>
 
-      <div id="result" class="message small">Listo.</div>
+      <div id="result" class="message small" aria-live="polite"></div>
     </section>
   </main>
 
